@@ -1,5 +1,6 @@
 [workspace]
 members = [
   "limitation",
+  "limitation-actix-middleware",
   "limitation-example",
 ]
