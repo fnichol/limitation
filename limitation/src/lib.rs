@@ -103,12 +103,12 @@ pub struct Builder<'a> {
 }
 
 impl Builder<'_> {
-    pub fn limit<'a>(&'a mut self, limit: usize) -> &'a mut Self {
+    pub fn limit(&mut self, limit: usize) -> &mut Self {
         self.limit = limit;
         self
     }
 
-    pub fn period<'a>(&'a mut self, period: Duration) -> &'a mut Self {
+    pub fn period(&mut self, period: Duration) -> &mut Self {
         self.period = period;
         self
     }
