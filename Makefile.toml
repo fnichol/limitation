@@ -1,0 +1,114 @@
+[env]
+CARGO_MAKE_EXTEND_WORKSPACE_MAKEFILE = "true"
+
+[tasks.ci-lint-flow]
+description = "CI task runs cargo clippy"
+category = "CI"
+dependencies = [
+  "clippy",
+]
+
+[tasks.ci-format-flow]
+description = "CI task runs cargo fmt with check"
+category = "CI"
+dependencies = [
+  "check-format",
+]
+
+[tasks.ci-check-flow]
+description = "Checks all linting, styling, & other rules"
+category = "CI"
+dependencies = [
+  "ci-lint-flow",
+  "ci-format-flow"
+]
+
+[tasks.ci-build-flow]
+description = "CI task runs cargo build with verbose output"
+category = "CI"
+dependencies = [
+  "pre-build",
+  "build-verbose",
+  "post-build",
+]
+
+[tasks.ci-test-flow]
+description = "CI task runs cargo test with verbose output"
+category = "CI"
+dependencies = [
+  "pre-test",
+  "test-verbose",
+  "post-test",
+]
+
+[tasks.check-format]
+args = [
+  "fmt",
+  "--verbose",
+  "--",
+  "--check",
+]
+
+[tasks.clippy]
+args = [
+  "clippy",
+  "--all-targets",
+  "--all-features",
+  "--",
+  "-D",
+  "warnings",
+]
+
+[tasks.readme]
+description = ""
+category = ""
+env = { "CARGO_MAKE_MEMBER_TASK" = "member-readme" }
+run_task = "do-on-members"
+
+[tasks.member-readme]
+dependencies = [
+  "update-readme-toc",
+  "format-readme",
+]
+
+[tasks.update-readme-toc]
+command = "mtoc"
+args = [
+  "--in-place",
+  "--format",
+  "dashes",
+  "README.md",
+]
+install_crate = { crate_name = "mtoc", binary = "mtoc", test_arg = "--help" }
+
+[tasks.generate-readme]
+command = "cargo"
+args = [
+  "readme",
+  "--output",
+  "README.md",
+]
+
+[tasks.format-readme]
+command = "prettier"
+args = [
+  "--write",
+  "README.md",
+]
+install_script = [
+  '''
+  if ! command -v prettier; then
+    npm install --global prettier
+  fi
+  '''
+]
+
+[tasks.format-readme.windows]
+extend = "format-readme"
+install_script = [
+  '''
+  if (-not (Get-Command prettier -ErrorAction SilentlyContinue)) {
+    npm install --global prettier
+  }
+  '''
+]
