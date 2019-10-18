@@ -12,7 +12,7 @@ use url::Url;
 pub struct Config {
     pub(crate) bind_addr: SocketAddr,
     pub(crate) redis_url: Url,
-    pub(crate) proxy_to: SocketAddr,
+    pub(crate) proxy_to: Url,
     pub(crate) header: HeaderName,
     pub(crate) rate_limit: usize,
     pub(crate) rate_period: Duration,
@@ -67,10 +67,12 @@ impl<'a, 'b, 'c, 'd> Builder<'a, 'b, 'c, 'd> {
     }
 
     pub fn finish(&self) -> Result<Config, Box<dyn error::Error>> {
+        let proxy_to_sock = self.proxy_to.parse::<SocketAddr>()?;
+
         Ok(Config {
             bind_addr: self.bind_addr.parse()?,
             redis_url: Url::parse(self.redis_url)?,
-            proxy_to: self.proxy_to.parse()?,
+            proxy_to: Url::parse(&format!("http://{}", proxy_to_sock))?,
             header: HeaderName::from_lowercase(self.header.to_lowercase().as_bytes())?,
             rate_limit: self.rate_limit,
             rate_period: self.rate_period,
