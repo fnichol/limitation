@@ -2,10 +2,13 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
+use chrono::SubsecRound;
 use futures::Future;
 use redis::Client;
+use std::convert::TryInto;
 use std::error;
 use std::fmt;
+use std::ops::Add;
 use std::time::Duration;
 
 const DEFAULT_LIMIT: usize = 5000;
@@ -27,19 +30,21 @@ impl Limiter {
         }
     }
 
-    pub fn count<K: Into<String>>(&self, key: K) -> impl Future<Item = usize, Error = Error> {
+    pub fn count<K: Into<String>>(&self, key: K) -> impl Future<Item = Status, Error = Error> {
         let limit = self.limit;
 
-        self.track(key).and_then(move |count| {
+        self.track(key).and_then(move |(count, reset_epoch_utc)| {
+            let status = build_status(count, limit, reset_epoch_utc);
+
             if count > limit {
-                Err(Error::LimitExceeded(count))
+                Err(Error::LimitExceeded(status))
             } else {
-                Ok(count)
+                Ok(status)
             }
         })
     }
 
-    fn track<K: Into<String>>(&self, key: K) -> impl Future<Item = usize, Error = Error> {
+    fn track<K: Into<String>>(&self, key: K) -> impl Future<Item = (usize, usize), Error = Error> {
         let key = key.into();
         let exipres = self.period.as_secs();
 
@@ -57,12 +62,37 @@ impl Limiter {
                     .arg("NX")
                     .ignore()
                     .cmd("INCR")
+                    .arg(&key)
+                    .cmd("TTL")
                     .arg(&key);
 
                 pipe.query_async(con)
                     .from_err()
-                    .and_then(|(_, (count,)): (_, (usize,))| Ok(count))
+                    .and_then(|(_, (count, ttl)): (_, (usize, u64))| {
+                        Ok((count, epoch_utc_plus(Duration::from_secs(ttl))?))
+                    })
             })
+    }
+}
+
+#[derive(Clone, Debug)]
+pub struct Status {
+    limit: usize,
+    remaining: usize,
+    reset_epoch_utc: usize,
+}
+
+impl Status {
+    pub fn limit(&self) -> usize {
+        self.limit
+    }
+
+    pub fn remaining(&self) -> usize {
+        self.remaining
+    }
+
+    pub fn reset_epoch_utc(&self) -> usize {
+        self.reset_epoch_utc
     }
 }
 
@@ -95,14 +125,16 @@ impl Builder<'_> {
 #[derive(Debug)]
 pub enum Error {
     Client(redis::RedisError),
-    LimitExceeded(usize),
+    LimitExceeded(Status),
+    Time(time::OutOfRangeError),
 }
 
 impl fmt::Display for Error {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match self {
             Error::Client(ref err) => write!(f, "client error ({})", err),
-            Error::LimitExceeded(ref count) => write!(f, "rate limit exceeded count={}", count),
+            Error::LimitExceeded(ref status) => write!(f, "rate limit exceeded ({:?})", status),
+            Error::Time(ref err) => write!(f, "time conversion error ({})", err),
         }
     }
 }
@@ -112,6 +144,7 @@ impl error::Error for Error {
         match self {
             Error::Client(ref err) => err.source(),
             Error::LimitExceeded(_) => None,
+            Error::Time(ref err) => err.source(),
         }
     }
 }
@@ -120,4 +153,29 @@ impl From<redis::RedisError> for Error {
     fn from(err: redis::RedisError) -> Self {
         Error::Client(err)
     }
+}
+
+impl From<time::OutOfRangeError> for Error {
+    fn from(err: time::OutOfRangeError) -> Self {
+        Error::Time(err)
+    }
+}
+
+fn build_status(count: usize, limit: usize, reset_epoch_utc: usize) -> Status {
+    let remaining = if count >= limit { 0 } else { limit - count };
+
+    Status {
+        limit,
+        remaining,
+        reset_epoch_utc,
+    }
+}
+
+fn epoch_utc_plus(duration: Duration) -> Result<usize, time::OutOfRangeError> {
+    Ok(chrono::Utc::now()
+        .add(chrono::Duration::from_std(duration)?)
+        .round_subsecs(0)
+        .timestamp()
+        .try_into()
+        .unwrap_or(0))
 }

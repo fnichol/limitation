@@ -29,8 +29,8 @@ fn main() -> Result<(), Box<dyn error::Error>> {
         limiter
             .count(key)
             .map_err(|err| eprintln!("err: {}", err))
-            .and_then(|count| {
-                println!("ok: {:?}", count);
+            .and_then(|status| {
+                println!("ok: {:?}", status);
                 Ok(())
             }),
     );
