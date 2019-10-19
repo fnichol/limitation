@@ -8,6 +8,7 @@ use std::net::SocketAddr;
 use std::time::Duration;
 use url::Url;
 
+/// Service configuration.
 #[derive(Clone, Debug)]
 pub struct Config {
     pub(crate) bind_addr: SocketAddr,
@@ -19,6 +20,11 @@ pub struct Config {
 }
 
 impl Config {
+    /// Returns a builder for a `Config`.
+    ///
+    /// The [`finish`] method will build the final `Config`.
+    ///
+    /// [`finish`]: struct.Buidler.html#method.finish
     pub fn build<'a, 'b, 'c, 'd>() -> Builder<'a, 'b, 'c, 'd> {
         Builder {
             bind_addr: "127.0.0.1:8080",
@@ -31,6 +37,9 @@ impl Config {
     }
 }
 
+/// A builder for a [`Config`].
+///
+/// [`Config`]: struct.Config.html
 pub struct Builder<'a, 'b, 'c, 'd> {
     bind_addr: &'a str,
     redis_url: &'b str,
@@ -41,31 +50,41 @@ pub struct Builder<'a, 'b, 'c, 'd> {
 }
 
 impl<'a, 'b, 'c, 'd> Builder<'a, 'b, 'c, 'd> {
+    /// Sets a new bind address for service.
     pub fn bind_addr(&'a mut self, bind_addr: &'a str) -> &'a mut Self {
         self.bind_addr = bind_addr;
         self
     }
 
+    /// Sets a new Redis URL for the rate-limiting middleware.
     pub fn redis_url(&'b mut self, redis_url: &'b str) -> &'b mut Self {
         self.redis_url = redis_url;
         self
     }
 
+    /// Sets a new socket address to proxy traffic to.
     pub fn proxy_to(&'c mut self, proxy_to: &'c str) -> &'c mut Self {
         self.proxy_to = proxy_to;
         self
     }
 
+    /// Sets a new maximum limit for the `Limiter`.
     pub fn rate_limit(&mut self, rate_limit: usize) -> &mut Self {
         self.rate_limit = rate_limit;
         self
     }
 
+    /// Sets a new period duration for the `Limiter`.
     pub fn rate_period(&mut self, rate_period: Duration) -> &mut Self {
         self.rate_period = rate_period;
         self
     }
 
+    /// Finalizes and returns a `Config`.
+    ///
+    /// # Errors
+    ///
+    /// Returns an `Err` if any string type fails to parse and validate.
     pub fn finish(&self) -> Result<Config, Box<dyn error::Error>> {
         let proxy_to_sock = self.proxy_to.parse::<SocketAddr>()?;
 

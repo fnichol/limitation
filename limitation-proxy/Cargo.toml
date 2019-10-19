@@ -16,3 +16,6 @@ futures = "0.1.29"
 limitation-actix-middleware = { path = "../limitation-actix-middleware" }
 log = "0.4.8"
 url = "2.1.0"
+
+[dev-dependencies]
+version-sync = "0.8.1"
