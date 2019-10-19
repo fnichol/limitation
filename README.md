@@ -169,10 +169,9 @@ licensed as above, without any additional terms or conditions.
 [ci]: https://cirrus-ci.com/github/fnichol/limitation
 [ci-master]: https://cirrus-ci.com/github/fnichol/limitation/master
 [code-of-conduct]:
-  https://github.com/fnichol/limitation/blob/master/limitation/CODE_OF_CONDUCT.md
+  https://github.com/fnichol/limitation/blob/master/CODE_OF_CONDUCT.md
 [commonmark]: https://commonmark.org/
 [fnichol]: https://github.com/fnichol
 [github]: https://github.com/fnichol/limitation
 [issues]: https://github.com/fnichol/limitation/issues
-[license]:
-  https://github.com/fnichol/limitation/blob/master/limitation/LICENSE.txt
+[license]: https://github.com/fnichol/limitation/blob/master/LICENSE.txt
