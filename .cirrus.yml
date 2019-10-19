@@ -5,7 +5,7 @@
 common_unix_template: &COMMON_UNIX_TEMPLATE
   install_rustup_script: |
     curl -sSfL https://sh.rustup.rs \
-      | sh -s -- -y --default-toolchain none --no-modify-path
+      | sh -s -- -y --default-toolchain none --no-modify-path --profile=minimal
   install_rust_script: rustup default "$RUST_VERSION"
 
   cargo_cache:
@@ -30,7 +30,7 @@ common_windows_template: &COMMON_WINDOWS_TEMPLATE
     - ps: |
         & ([scriptblock]::Create((New-Object System.Net.WebClient).
           DownloadString('https://gist.github.com/fnichol/699d3c2930649a9932f71bab8a315b31/raw/rustup-init.ps1')
-          )) -y --default-toolchain none --no-modify-path
+          )) -y --default-toolchain none --no-modify-path --profile=minimal
   install_rust_script:
     - ps: rustup default "$env:RUST_VERSION"
 
