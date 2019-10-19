@@ -2,9 +2,12 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-//! Library for the `limitation-proxy` service.
+#[test]
+fn test_readme_deps() {
+    version_sync::assert_markdown_deps_updated!("README.md");
+}
 
-#![doc(html_root_url = "https://docs.rs/limitation-proxy/0.1.0")]
-#![deny(missing_docs)]
-
-pub mod app;
+#[test]
+fn test_html_root_url() {
+    version_sync::assert_html_root_url_updated!("src/lib.rs");
+}

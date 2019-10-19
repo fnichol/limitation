@@ -12,3 +12,6 @@ actix-web = "1.0.8"
 futures = "0.1.29"
 limitation = { path = "../limitation" }
 log = "0.4.8"
+
+[dev-dependencies]
+version-sync = "0.8.1"
