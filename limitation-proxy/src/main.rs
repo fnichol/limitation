@@ -3,11 +3,13 @@
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 use limitation_proxy::app::{self, Error};
-use log::error;
+use log::{debug, error};
 use std::process;
 
+mod cli;
+
 fn main() {
-    util::init_logger();
+    cli::util::init_logger();
 
     if let Err(err) = try_main() {
         error!("{}", err);
@@ -16,25 +18,8 @@ fn main() {
 }
 
 fn try_main() -> Result<(), Error> {
-    let config = app::Config::build().finish()?;
+    let args = cli::from_args();
+    debug!("parsed cli arguments; args={:?}", args);
 
-    app::run(config)
-}
-
-mod util {
-    use std::env;
-
-    pub fn init_logger() {
-        if env::var("RUST_LOG").is_err() {
-            env::set_var(
-                "RUST_LOG",
-                concat!(
-                    "actix_server=info,actix_web=info,",
-                    env!("CARGO_PKG_NAME"),
-                    "=info"
-                ),
-            );
-        }
-        env_logger::init();
-    }
+    app::run(args.into())
 }

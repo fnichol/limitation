@@ -4,17 +4,29 @@
 
 //! Rate-limiting reverse proxy Actix service.
 
-use actix_web::{client::Client, middleware, web, App, HttpServer};
+use actix_web::{client::Client, http::header::HeaderName, middleware, web, App, HttpServer};
 use limitation_actix_middleware::{Limiter, RateLimiter};
 use std::error;
+use std::net::SocketAddr;
+use std::time::Duration;
+use typed_builder::TypedBuilder;
+use url::Url;
 
-mod config;
 mod handlers;
-
-pub use config::Config;
 
 /// Error type for the application.
 pub type Error = Box<dyn error::Error>;
+
+/// Service configuration.
+#[derive(Clone, Debug, TypedBuilder)]
+pub struct Config {
+    pub(crate) bind_addr: SocketAddr,
+    pub(crate) redis_url: Url,
+    pub(crate) proxy_to: Url,
+    pub(crate) header: HeaderName,
+    pub(crate) rate_limit: usize,
+    pub(crate) rate_period: Duration,
+}
 
 /// Build and run the service given a configuration.
 pub fn run(config: Config) -> Result<(), Error> {
