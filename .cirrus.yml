@@ -84,8 +84,7 @@ task:
     matrix:
       - RUST_VERSION: stable
       - RUST_VERSION: nightly
-      # TODO: determine reasonable msrv
-      # - RUST_VERSION: 1.38.0 # Minimum supported Rust version
+      - RUST_VERSION: 1.35.0 # Minimum supported Rust version
   allow_failures: $RUST_VERSION == 'nightly'
 
   matrix:

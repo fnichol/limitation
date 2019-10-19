@@ -135,21 +135,21 @@ licensed as above, without any additional terms or conditions.
 [badge-nightly_windows-test]:
   https://img.shields.io/cirrus/github/fnichol/limitation.svg?style=flat-square&task=test_nightly_windows&script=test
 [badge-oldest_freebsd-build]:
-  https://img.shields.io/cirrus/github/fnichol/limitation.svg?style=flat-square&task=test_1.38.0_freebsd&script=build
+  https://img.shields.io/cirrus/github/fnichol/limitation.svg?style=flat-square&task=test_1.35.0_freebsd&script=build
 [badge-oldest_freebsd-test]:
-  https://img.shields.io/cirrus/github/fnichol/limitation.svg?style=flat-square&task=test_1.38.0_freebsd&script=test
+  https://img.shields.io/cirrus/github/fnichol/limitation.svg?style=flat-square&task=test_1.35.0_freebsd&script=test
 [badge-oldest_linux-build]:
-  https://img.shields.io/cirrus/github/fnichol/limitation.svg?style=flat-square&task=test_1.38.0_linux&script=build
+  https://img.shields.io/cirrus/github/fnichol/limitation.svg?style=flat-square&task=test_1.35.0_linux&script=build
 [badge-oldest_linux-test]:
-  https://img.shields.io/cirrus/github/fnichol/limitation.svg?style=flat-square&task=test_1.38.0_linux&script=test
+  https://img.shields.io/cirrus/github/fnichol/limitation.svg?style=flat-square&task=test_1.35.0_linux&script=test
 [badge-oldest_macos-build]:
-  https://img.shields.io/cirrus/github/fnichol/limitation.svg?style=flat-square&task=test_1.38.0_macos&script=build
+  https://img.shields.io/cirrus/github/fnichol/limitation.svg?style=flat-square&task=test_1.35.0_macos&script=build
 [badge-oldest_macos-test]:
-  https://img.shields.io/cirrus/github/fnichol/limitation.svg?style=flat-square&task=test_1.38.0_macos&script=test
+  https://img.shields.io/cirrus/github/fnichol/limitation.svg?style=flat-square&task=test_1.35.0_macos&script=test
 [badge-oldest_windows-build]:
-  https://img.shields.io/cirrus/github/fnichol/limitation.svg?style=flat-square&task=test_1.38.0_windows&script=build
+  https://img.shields.io/cirrus/github/fnichol/limitation.svg?style=flat-square&task=test_1.35.0_windows&script=build
 [badge-oldest_windows-test]:
-  https://img.shields.io/cirrus/github/fnichol/limitation.svg?style=flat-square&task=test_1.38.0_windows&script=test
+  https://img.shields.io/cirrus/github/fnichol/limitation.svg?style=flat-square&task=test_1.35.0_windows&script=test
 [badge-stable_freebsd-build]:
   https://img.shields.io/cirrus/github/fnichol/limitation.svg?style=flat-square&task=test_stable_freebsd&script=build
 [badge-stable_freebsd-test]:
