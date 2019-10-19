@@ -101,7 +101,7 @@ task:
             image: rust:latest
         - name: test_${RUST_VERSION}_macos
           osx_instance:
-            image: high-sierra-xcode-9.4.1
+            image: mojave-xcode
           env:
             CARGO_HOME: "$HOME/.cargo"
             PATH: "$CARGO_HOME/bin:$PATH"
