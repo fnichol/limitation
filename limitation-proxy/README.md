@@ -30,6 +30,8 @@
 
 <!-- tocstop -->
 
+A reverse proxy service with configurable rate limiting
+
 ## Installation
 
 ### Cargo Install

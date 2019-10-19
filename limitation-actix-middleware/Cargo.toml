@@ -4,13 +4,22 @@ version = "0.1.0"
 authors = ["Fletcher Nichol <fnichol@nichol.ca>"]
 edition = "2018"
 license = "MPL-2.0"
+repository = "https://github.com/fnichol/limitation"
+documentation = "https://docs.rs/limitation-actix-middleware"
+keywords = ["rate-limit", "rate-limiting", "actix-web", "middleware"]
+categories = ["asynchronous", "web-programming"]
+description = """
+An Actix web middleware for rate limiting requests using a fixed window counter
+keyed on a header.
+"""
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[badges]
+cirrus-ci = { repository = "fnichol/limitation" }
 
 [dependencies]
 actix-web = "1.0.8"
 futures = "0.1.29"
-limitation = { path = "../limitation" }
+limitation = { version = "0.1.0", path = "../limitation" }
 log = "0.4.8"
 
 [dev-dependencies]

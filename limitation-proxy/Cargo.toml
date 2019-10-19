@@ -4,8 +4,17 @@ version = "0.1.0"
 authors = ["Fletcher Nichol <fnichol@nichol.ca>"]
 edition = "2018"
 license = "MPL-2.0"
+repository = "https://github.com/fnichol/limitation"
+documentation = "https://github.com/fnichol/limitation"
+homepage = "https://github.com/fnichol/limitation"
+keywords = ["rate-limit", "rate-limiting", "actix-web", "proxy"]
+categories = ["asynchronous", "web-programming::http-server"]
+description = """
+A reverse proxy service with configurable rate limiting.
+"""
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[badges]
+cirrus-ci = { repository = "fnichol/limitation" }
 
 [dependencies]
 actix-http = "0.2.10"
@@ -13,7 +22,7 @@ actix-rt = "0.2.5"
 actix-web = "1.0.8"
 env_logger = "0.7.1"
 futures = "0.1.29"
-limitation-actix-middleware = { path = "../limitation-actix-middleware" }
+limitation-actix-middleware = { version = "0.1.0", path = "../limitation-actix-middleware" }
 log = "0.4.8"
 url = "2.1.0"
 

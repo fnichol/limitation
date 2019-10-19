@@ -4,8 +4,17 @@ version = "0.1.0"
 authors = ["Fletcher Nichol <fnichol@nichol.ca>"]
 edition = "2018"
 license = "MPL-2.0"
+repository = "https://github.com/fnichol/limitation"
+documentation = "https://docs.rs/limitation"
+keywords = ["rate-limit", "rate-limiting", "limiter", "redis"]
+categories = ["asynchronous", "web-programming"]
+description = """
+A rate limiter using a fixed window counter for arbitrary keys, backed by
+Redis.
+"""
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[badges]
+cirrus-ci = { repository = "fnichol/limitation" }
 
 [dependencies]
 chrono = "0.4.9"

@@ -15,6 +15,8 @@
 
 <!-- tocstop -->
 
+An example command line application to demonstrate the `Limiter` in isolation.
+
 ## Usage
 
 ### From Source
