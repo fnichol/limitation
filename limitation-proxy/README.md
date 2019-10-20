@@ -92,7 +92,7 @@ You can use the `-h`/`--help` flag to get:
 
 ```console
 $ limitation-proxy
-limitation-proxy 0.1.0
+limitation-proxy 0.1.1
 Fletcher Nichol <fnichol@nichol.ca>
 
 A reverse proxy service with configurable rate limiting
