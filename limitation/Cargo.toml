@@ -1,6 +1,6 @@
 [package]
 name = "limitation"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Fletcher Nichol <fnichol@nichol.ca>"]
 edition = "2018"
 license = "MPL-2.0"

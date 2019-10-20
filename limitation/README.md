@@ -51,7 +51,7 @@ Add `limitation` to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-limitation = "0.1.0"
+limitation = "0.1.1"
 ```
 
 ### Quick Example

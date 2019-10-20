@@ -20,7 +20,7 @@
 //!
 //! ```toml
 //! [dependencies]
-//! limitation = "0.1.0"
+//! limitation = "0.1.1"
 //! ```
 //!
 //! ## Quick Example
@@ -122,7 +122,7 @@
 //! [Contributing]: https://github.com/fnichol/limitation/tree/master/limitation#contributing
 //! [redis]: https://github.com/mitsuhiko/redis-rs/blob/master/tests/support/mod.rs
 
-#![doc(html_root_url = "https://docs.rs/limitation/0.1.0")]
+#![doc(html_root_url = "https://docs.rs/limitation/0.1.1")]
 #![deny(missing_docs)]
 
 use chrono::SubsecRound;

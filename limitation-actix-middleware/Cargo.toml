@@ -19,7 +19,7 @@ cirrus-ci = { repository = "fnichol/limitation" }
 [dependencies]
 actix-web = "1.0.8"
 futures = "0.1.29"
-limitation = { version = "0.1.0", path = "../limitation" }
+limitation = { version = "0.1.1", path = "../limitation" }
 log = "0.4.8"
 
 [dev-dependencies]
