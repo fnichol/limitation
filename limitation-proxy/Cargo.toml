@@ -7,6 +7,7 @@ license = "MPL-2.0"
 repository = "https://github.com/fnichol/limitation"
 documentation = "https://github.com/fnichol/limitation"
 homepage = "https://github.com/fnichol/limitation"
+readme = "README.md"
 keywords = ["rate-limit", "rate-limiting", "actix-web", "proxy"]
 categories = ["asynchronous", "web-programming::http-server"]
 description = """
