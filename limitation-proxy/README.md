@@ -139,7 +139,7 @@ $ limitation-proxy --limit 100 --period 60
 
 These are some ideas and potential future work for this project. If you're
 reading this, then maybe you're curious or interested in helping out? Great! Be
-sure to check out the [Contributing][#contributin] section and dig in!
+sure to check out the [Contributing][#contributing] section and dig in!
 
 - Allowing configurable rules to match particular HTTP requests, possibly by
   HTTP verb, path, headers, etc.
