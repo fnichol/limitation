@@ -37,7 +37,7 @@ Add `limitation-actix-middleware` to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-limitation-actix-middleware = "0.1.0"
+limitation-actix-middleware = "0.1.1"
 ```
 
 ### Quick Example

@@ -760,7 +760,7 @@ dependencies = [
 
 [[package]]
 name = "limitation-actix-middleware"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "actix-web 1.0.8 (registry+https://github.com/rust-lang/crates.io-index)",
  "futures 0.1.29 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -787,7 +787,7 @@ dependencies = [
  "actix-web 1.0.8 (registry+https://github.com/rust-lang/crates.io-index)",
  "env_logger 0.7.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "futures 0.1.29 (registry+https://github.com/rust-lang/crates.io-index)",
- "limitation-actix-middleware 0.1.0",
+ "limitation-actix-middleware 0.1.1",
  "log 0.4.8 (registry+https://github.com/rust-lang/crates.io-index)",
  "structopt 0.3.3 (registry+https://github.com/rust-lang/crates.io-index)",
  "typed-builder 0.3.0 (registry+https://github.com/rust-lang/crates.io-index)",

@@ -22,7 +22,7 @@ actix-rt = "0.2.5"
 actix-web = "1.0.8"
 env_logger = "0.7.1"
 futures = "0.1.29"
-limitation-actix-middleware = { version = "0.1.0", path = "../limitation-actix-middleware" }
+limitation-actix-middleware = { version = "0.1.1", path = "../limitation-actix-middleware" }
 log = "0.4.8"
 structopt = { version = "0.3.3", default-features = false, features = ["suggestions", "wrap_help"] }
 typed-builder = "0.3.0"

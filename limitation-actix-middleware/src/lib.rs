@@ -11,7 +11,7 @@
 //!
 //! ```toml
 //! [dependencies]
-//! limitation-actix-middleware = "0.1.0"
+//! limitation-actix-middleware = "0.1.1"
 //! ```
 //!
 //! ## Quick Example
@@ -61,7 +61,7 @@
 //! [catchall]:
 //! https://github.com/fnichol/limitation/blob/master/limitation-actix-middleware/examples/catchall.rs
 
-#![doc(html_root_url = "https://docs.rs/limitation-actix-middleware/0.1.0")]
+#![doc(html_root_url = "https://docs.rs/limitation-actix-middleware/0.1.1")]
 #![deny(missing_docs)]
 
 mod rate_limiter;
