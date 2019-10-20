@@ -13,10 +13,12 @@
 
 <!-- toc -->
 
+- [About](#about)
 - [Installation](#installation)
   - [Cargo Install](#cargo-install)
   - [From Source](#from-source)
 - [Usage](#usage)
+- [Ideas and Future Work](#ideas-and-future-work)
 - [CI Status](#ci-status)
   - [Build (master branch)](#build-master-branch)
   - [Test (master branch)](#test-master-branch)
@@ -31,6 +33,33 @@
 <!-- tocstop -->
 
 A reverse proxy service with configurable rate limiting
+
+## About
+
+The `limitation-proxy` service is an HTTP reverse proxy which sits in front of
+another HTTP service and will perform rate limiting on all requests that pass
+through it. The rate limiting is a variant of a fixed window rate limiting
+strategy and Redis is used for its persistence.
+
+```text
+        +------------------+            +-----------------------+
+        |                  |            |                       |
+        |                  |            |                       |
+    --->+ limitation-proxy +----------->+        proxied        |
+        |                  +<-----------+        back end       |
+        |                  |            |                       |
+        |                  |            |                       |
+        +--------+---------+            +-----------------------+
+                 |
+                 v
+        +--------+---------+
+        |                  |
+        |                  |
+        |      Redis       |
+        |                  |
+        |                  |
+        +------------------+
+```
 
 ## Installation
 
@@ -59,9 +88,71 @@ $ cp ./target/release/limitation-proxy /dest/path/
 
 ## Usage
 
+You can use the `-h`/`--help` flag to get:
+
+```console
+$ limitation-proxy
+limitation-proxy 0.1.0
+Fletcher Nichol <fnichol@nichol.ca>
+
+A reverse proxy service with configurable rate limiting
+
+Project home page: https://github.com/fnichol/limitation
+
+USAGE:
+    limitation-proxy
+
+OPTIONS:
+    -b, --bind <BIND>        Bind address for the service [env: BIND_ADDR]
+                             [default: 0.0.0.0:8080]
+    -H, --header <HEADER>    Header to be used as the key for rate-limiting
+                             [default: authorization]
+    -l, --limit <LIMIT>      Maximum number of requests per key in the period
+                             [default: 5000]
+    -P, --period <PERIOD>    Duration of period window in seconds [default:
+                             3600]
+    -p, --proxy <PROXY>      Backend proxy URL target [env: PROXY_URL]
+                             [default: http://127.0.0.1:8000]
+    -r, --redis <REDIS>      Redis URL for persistence [env: REDIS_URL]
+                             [default: redis://127.0.0.1/]
+    -h, --help               Prints help information
+    -V, --version            Prints version information
+```
+
+A running Redis instance is required for `limitation-proxy`, so we'll assume one
+is running locally and reachable at `127.0.0.1:6379` which happens to be this
+service's default as well. Starting the service without any arguments runs with
+the default settings:
+
 ```console
 $ limitation-proxy
 ```
+
+You can also override the defaults with the arguments. For example, this will
+run the service limiting up to 100 requests in a 60 second window:
+
+```console
+$ limitation-proxy --limit 100 --period 60
+```
+
+## Ideas and Future Work
+
+These are some ideas and potential future work for this project. If you're
+reading this, then maybe you're curious or interested in helping out? Great! Be
+sure to check out the [Contributing][#contributin] section and dig in!
+
+- Allowing configurable rules to match particular HTTP requests, possibly by
+  HTTP verb, path, headers, etc.
+- Allow more granular matching inside the header value. Currently, an
+  `Authorization` header will only key on the full value string which may
+  include both basic authentication and token based authentication.
+- Support incoming TLS and/or TLS to the proxied back end.
+- Add an API path to check a user's current limit status. Note that there would
+  likely be some small feature work in the `limitation` crate to support this.
+- Allow this service to cover a sub-path on the proxied back end. Currently a
+  request to `/a/b` will be proxied to the back end's `/a/b` path. It might be
+  useful if the service could take `/a/b` and send it to `/api/v1/a/b` on the
+  back end
 
 ## CI Status
 
