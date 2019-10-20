@@ -6,6 +6,7 @@ edition = "2018"
 license = "MPL-2.0"
 repository = "https://github.com/fnichol/limitation"
 documentation = "https://docs.rs/limitation-actix-middleware"
+readme = "README.md"
 keywords = ["rate-limit", "rate-limiting", "actix-web", "middleware"]
 categories = ["asynchronous", "web-programming"]
 description = """
