@@ -18,6 +18,7 @@
   - [The Limiter Builder](#the-limiter-builder)
 - [Examples](#examples)
 - [Related Projects and References](#related-projects-and-references)
+- [Ideas and Future Work](#ideas-and-future-work)
 - [CI Status](#ci-status)
   - [Build (master branch)](#build-master-branch)
   - [Test (master branch)](#test-master-branch)
@@ -135,6 +136,25 @@ Other research and references used for this library:
 - <https://engagor.github.io/blog/2017/05/02/sliding-window-rate-limiter-redis/>
 
 [blog-post]: https://blog.atulr.com/rate-limiter/
+
+## Ideas and Future Work
+
+These are some ideas and potential future work for this project. If you're
+reading this then maybe you're curious or interesting in helping out? Great! Be
+sure to check out the [Contributing] section and dig in!
+
+- Investigate and offer alternative rate-limiting algorithms, notably a Sliding
+  Window solution.
+- Add async Redis connection pooling with the `bb8` and `bb8-redis` crates to
+  reduce connection establishment delays.
+- Add a `status` method on `Limiter` which returns they key's `Status` without
+  counting a request.
+- Add `RedisServer` support in an integration testing suite, similar to the
+  infrastructure in the [redis] crate.
+
+[contributing]:
+  https://github.com/fnichol/limitation/tree/master/limitation#contributing
+[redis]: https://github.com/mitsuhiko/redis-rs/blob/master/tests/support/mod.rs
 
 ## CI Status
 
