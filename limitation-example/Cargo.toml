@@ -11,5 +11,5 @@ publish = false
 
 [dependencies]
 limitation = { path = "../limitation" }
-tokio = "0.1.22"
+tokio = "1.18.5"
 futures = "0.1.29"
